@@ -10,17 +10,16 @@ usermod -aG docker ubuntu
 curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
-# copy the dockerfile into /srv/docker 
+# copy the dockerfile into /srv/docker
 # if you change this, change the systemd service file to match
 # WorkingDirectory=[whatever you have below]
 mkdir /srv/docker
-curl -o /srv/docker/docker-compose.yml https://raw.githubusercontent.com/mikegcoleman/todo/master/docker-compose.yml
+curl -o /srv/docker/docker-compose.yml https://raw.githubusercontent.com/Momojunzi/new-portfolio/master/docker-compose.yaml
 
-# copy in systemd unit file and register it so our compose file runs 
+# copy in systemd unit file and register it so our compose file runs
 # on system restart
-curl -o /etc/systemd/system/docker-compose-app.service https://raw.githubusercontent.com/mikegcoleman/todo/master/docker-compose-app.service
+curl -o /etc/systemd/system/docker-compose-app.service https://raw.githubusercontent.com/Momojunzi/aws-lightsail-docker-launch-script/master/docker-compose-app.service
 systemctl enable docker-compose-app
 
 # start up the application via docker-compose
 docker-compose -f /srv/docker/docker-compose.yml up -d
-
